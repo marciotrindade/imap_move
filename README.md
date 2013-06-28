@@ -1,10 +1,10 @@
 # imap_move
 
-If you need to move your messages from a IMAP server to another you can do it now with this simple script in ruby.
+If you need to move your messages from an IMAP server to another you can do it with this simple Ruby script.
 
 ### How to use
 
-Just copy config.yml.example to config.yml:
+Just copy `config.yml.example` to `config.yml`:
 
     cp config.yml{.example,}
     
@@ -15,3 +15,4 @@ Then, run the command:
 ### Contributors
 
 * Marcio Trindade
+* Lucas Caton
