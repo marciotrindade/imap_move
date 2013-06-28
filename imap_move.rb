@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 require 'yaml'
-require './imap_adapter'
+require_relative 'imap_adapter'
 
 # load config
-AppConfig = YAML.load_file('config.yml')
+AppConfig = YAML.load_file(File.expand_path('../config.yml',  __FILE__))
 
 # Connect into servers
 conn_from = ImapAdapter.new(AppConfig['from'])
