@@ -1,0 +1,16 @@
+from:
+  host:        'outlook.locaweb.com.br'
+  port:        143
+  ssl:         false
+  username:    'my_username'
+  password:    'my_password'
+
+to:
+  host:        'imap.gmail.com'
+  port:        993
+  ssl:         true
+  username:    'my_gmail'
+  password:    'my_password'
+
+boxes_to_sync:
+  'INBOX': 'INBOX'
