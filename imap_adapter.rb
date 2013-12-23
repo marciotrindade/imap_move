@@ -6,7 +6,7 @@ class ImapAdapter
   end
 
   def select_box(box)
-    connection.select('INBOX') rescue false
+    connection.select(box)
   end
 
   def select_or_create_box(box)
