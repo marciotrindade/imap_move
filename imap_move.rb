@@ -51,6 +51,6 @@ AppConfig['boxes_to_sync'].each do |box_from, box_to|
   conn_from.delete_messages(@messages_to_delete)
   puts "deleted messages that has ben copied #{@messages_to_delete}"
 
-  # conn_from.disconnect
-  # conn_to.disconnect
+  conn_from.disconnect
+  conn_to.disconnect
 end
