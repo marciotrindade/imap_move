@@ -47,7 +47,7 @@ class ImapAdapter
   end
 
   def delete_messages(uids)
-    connection.uid_store(uids, "+FLAGS", [:Deleted])
+    connection.uid_store(uids, "+FLAGS", [:Deleted]) if uids.any?
   end
 
   def copy_message(uid, server, folder)
