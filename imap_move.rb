@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'yaml'
-require_relative 'imap_adapter'
+require File.join(File.expand_path(File.dirname(__FILE__)), 'imap_adapter')
 
 # load config
 AppConfig = YAML.load_file(File.expand_path('../config.yml',  __FILE__))
