@@ -22,9 +22,6 @@ AppConfig['boxes_to_sync'].each do |box_from, box_to|
   messages_existing = conn_to.find_message_ids
   puts "messages_existing: #{messages_existing.size}"
 
-  # messages to remove from original server
-  @messages_to_delete = []
-
   puts "block to each message"
   # a block to execute fo each message
   conn_from.for_each_message do |message|
@@ -35,7 +32,7 @@ AppConfig['boxes_to_sync'].each do |box_from, box_to|
     # if message exist just remove
     if messages_existing.include?(message_id)
       puts "message ##{uid} exixsts in destination"
-      @messages_to_delete << uid
+      conn_from.delete_messages(uid)
       next
     end
 
