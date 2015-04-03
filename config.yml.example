@@ -1,7 +1,7 @@
 from:
   host:        'outlook.locaweb.com.br'
-  port:        143
-  ssl:         false
+  port:        993
+  ssl:         true
   username:    'my_username'
   password:    'my_password'
 
