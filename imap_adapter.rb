@@ -1,6 +1,7 @@
 require 'net/imap'
 
 class ImapAdapter
+
   def initialize(options)
     @config = options
   end
@@ -67,6 +68,8 @@ class ImapAdapter
 
   private
 
+  attr_reader :config
+
   def find_message(uid)
     connection.uid_fetch(uid, ['RFC822', 'FLAGS', 'INTERNALDATE']).first
   end
@@ -76,7 +79,7 @@ class ImapAdapter
   end
 
   def do_connection
-    con = Net::IMAP.new(@config['host'], @config['port'], @config['ssl'])
+    con = Net::IMAP.new(config['host'], config['port'], config['ssl'])
     con.login(@config['username'], @config['password'])
     con
   end
