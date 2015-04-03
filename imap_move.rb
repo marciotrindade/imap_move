@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 require 'yaml'
-require File.join(File.expand_path(File.dirname(__FILE__)), 'imap_adapter')
+require 'logger'
+require_relative 'imap_adapter'
+
+log = Logger.new(STDOUT)
+log.level = Logger::INFO
 
 # load config
 AppConfig = YAML.load_file(File.expand_path('../config.yml',  __FILE__))
@@ -12,39 +16,46 @@ conn_to   = ImapAdapter.new(AppConfig['to'])
 AppConfig['boxes_to_sync'].each do |box_from, box_to|
   # select box_from
   conn_from.select_box(box_from)
-  puts "conected from #{box_from}"
+  log.info("Selecting \"origin\" box: #{box_from}")
+  total_of_messages = conn_from.find_message_ids.size
 
+  if total_of_messages == 0
+    log.info("There isn't new message to move!")
+    next
+  end
+
+  log.info("There's #{total_of_messages} messages to move")
   # select or create box_to
   conn_to.select_or_create_box(box_to)
-  puts "conected to #{box_to}"
+  log.info("Selecting \"destination\" box: #{box_to}")
 
   # find messages that exist in the destination
   messages_existing = conn_to.find_message_ids
-  puts "messages_existing: #{messages_existing.size}"
 
-  puts "block to each message"
-  # a block to execute fo each message
+  # a block to execute for each message
+  index = 0
   conn_from.for_each_message do |message|
-    uid        = message.attr['UID']
+    index += 1
+    uid = message.attr['UID']
     message_id = message.attr['ENVELOPE'].message_id
-    puts "processing message #{uid}"
+    log.info("processing message uid: ##{uid} (#{index}/#{total_of_messages})")
 
     # if message exist just remove
     if messages_existing.include?(message_id)
-      puts "message ##{uid} exixsts in destination"
+      log.info("Message ##{uid} exixsts in destination")
       conn_from.delete_messages(uid)
       next
     end
 
     # find message body from original server
     conn_from.copy_message(uid, conn_to, box_to)
-    puts "message ##{uid} copied to destination"
+    log.info("Message ##{uid} copied to destination")
 
     # removed message that is copied
     conn_from.delete_messages(uid)
-    puts "deleted messages that has ben copied #{uid}"
+    log.info("Deleted message ##{uid}")
   end
-
-  conn_from.disconnect
-  conn_to.disconnect
 end
+
+conn_to.disconnect
+conn_from.disconnect
