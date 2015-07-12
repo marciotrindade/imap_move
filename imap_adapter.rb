@@ -12,14 +12,10 @@ class ImapAdapter
 
   def select_or_create_box(box)
     begin
-      connection.select(box)
+      select_box(box)
     rescue
-      begin
-        connection.create(box)
-        connection.select(box)
-      rescue
-        false
-      end
+      connection.create(box)
+      select_box(box)
     end
   end
 
@@ -75,13 +71,10 @@ class ImapAdapter
   end
 
   def connection
-    @connection ||= do_connection
-  end
-
-  def do_connection
-    con = Net::IMAP.new(config['host'], config['port'], config['ssl'])
-    con.login(@config['username'], @config['password'])
-    con
+    @connection ||= Net::IMAP.new(config['host'], config['port'], config['ssl'], nil, false).tap do |c|
+      c.login(config['username'], config['password'])
+      c.select('INBOX')
+    end
   end
 
   def each_slice(uids, *args)
