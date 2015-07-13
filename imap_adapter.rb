@@ -56,8 +56,11 @@ class ImapAdapter
     connection.append(folder, message.attr['RFC822'], nil, message.attr['INTERNALDATE'])
   end
 
-  def disconnect
+  def expunge
     connection.expunge
+  end
+
+  def disconnect
     connection.close
     @connection = nil
   end

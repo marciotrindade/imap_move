@@ -55,6 +55,8 @@ AppConfig['boxes_to_sync'].each do |box_from, box_to|
     conn_from.delete_messages(uid)
     log.info("Deleted message ##{uid}")
   end
+  # remove all messages that is mark to remove
+  conn_from.expunge
 end
 
 conn_to.disconnect
