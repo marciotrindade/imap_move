@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'yaml'
 require 'logger'
-require_relative 'imap_adapter'
+require File.expand_path('../imap_adapter', __FILE__)
 
 log = Logger.new(STDOUT)
 log.level = Logger::INFO
