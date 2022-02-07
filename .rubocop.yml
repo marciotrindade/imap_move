@@ -1,0 +1,129 @@
+---
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.0
+  TargetRailsVersion: 7.0
+  NewCops: enable
+  SuggestExtensions: false
+
+  Exclude:
+    - !ruby/regexp /\/node_modules\//
+    - !ruby/regexp /\/bin\//
+    - !ruby/regexp /\/db\/schema\.rb$/
+    - !ruby/regexp /\/vendor\//
+    - !ruby/regexp /\/gemfiles\//
+
+Metrics:
+  Enabled: false
+
+Rails/Delegate:
+  Enabled: false
+
+Rails/RefuteMethods:
+  Enabled: false
+
+# fnando rubocop
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Layout/FirstArrayElementLineBreak:
+  Enabled: true
+
+Layout/FirstHashElementLineBreak:
+  Enabled: true
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: space
+  SpaceBeforeBlockParameters: false
+
+Layout/LineLength:
+  Enabled: true
+  Max: 100
+  Exclude:
+    - !ruby/regexp /db\/.*?\.rb$/
+    - !ruby/regexp /config\/environments\/.*?\.rb$/
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: error
+
+Style/AccessModifierDeclarations:
+  EnforcedStyle: inline
+
+Style/Documentation:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/ModuleFunction:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%": "[]"
+    "%i": "[]"
+    "%q": "[]"
+    "%Q": "[]"
+    "%r": "{}"
+    "%s": "[]"
+    "%w": "[]"
+    "%W": "[]"
+    "%x": "[]"
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/SymbolArray:
+  Enabled: true
+
+Style/TrailingUnderscoreVariable:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: false
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true

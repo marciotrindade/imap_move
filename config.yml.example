@@ -12,5 +12,5 @@ to:
   username:    'my_gmail'
   password:    'my_password'
 
-boxes_to_sync:
+folders_to_sync:
   'INBOX': 'INBOX'
